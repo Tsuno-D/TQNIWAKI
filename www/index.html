@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- camera用metaタグ -->
+  <meta name="format-detection" content="telephone=no">
+  <meta name="msapplication-tap-highlight" content="no">
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+  <!--ここまでcamera用metaタグ-->
+  <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+  <script src="components/loader.js"></script>
+  <script src="lib/angular/angular.min.js"></script>
+  <script src="lib/onsenui/js/onsenui.min.js"></script>
+  <script src="lib/onsenui/js/angular-onsenui.min.js"></script>
+  <link rel="stylesheet" href="components/loader.css">
+  <link rel="stylesheet" href="lib/onsenui/css/onsenui.css">
+  <link rel="stylesheet" href="lib/onsenui/css/onsen-css-components.css">
+  <link rel="stylesheet" href="css/style.css">
+
+  
+
+    <script>
+        // PhoneGap event handler
+        document.addEventListener("deviceready", onDeviceReady, false);
+        function onDeviceReady() {
+            console.log("PhoneGap is ready");
+        }
+    </script>
+
+    <script type="text/javascript" src="js/hamburger.js"></script>
+
+</head>
+
+<body>
+  <!-- ここからスライドメニュー -->
+  <ons-splitter>
+    <ons-splitter-side id="menu" side="left" width="220px" collapse swipeable>
+      <ons-page>
+        <ons-list>
+          <ons-list-item onclick="fn.load('home.html')" tappable> Home </ons-list-item>
+          <ons-list-item onclick="fn.load('settings.html')" tappable> Settings </ons-list-item>
+          <ons-list-item onclick="fn.load('about.html')" tappable> About </ons-list-item>
+          <ons-list-item id="test" onclick="fn.load('about.html')" tappable>
+            <p id="test">page2のとき非表示</p>
+          </ons-list-item>
+        </ons-list>
+      </ons-page>
+    </ons-splitter-side>
+    <ons-splitter-content id="content" page="home.html"></ons-splitter-content>
+  </ons-splitter>
+  <ons-template id="home.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-toolbar-button onclick="fn.open()">
+            <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+        <div class="center"> Main </div>
+      </ons-toolbar>
+      <!-- ここからタブ機能 -->
+      <ons-page ng-controller="HelloController as hello">
+        <ons-tabbar position="auto">
+          <ons-tab page="page1.html" label="Page 1" icon="square" active></ons-tab>
+          <ons-tab page="page2.html" label="Page 2" icon="square"></ons-tab>
+          <ons-tab page="page3.html" label="Page 3" icon="square"></ons-tab>
+        </ons-tabbar>
+      </ons-page>
+      <!-- ここまでタブ機能 -->
+    </ons-page>
+  </ons-template>
+  <ons-template id="settings.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-toolbar-button onclick="fn.open()">
+            <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+        <div class="center"> Settings </div>
+      </ons-toolbar>
+    </ons-page>
+  </ons-template>
+  <ons-template id="about.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-toolbar-button onclick="fn.open()">
+            <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+        <div class="center"> About </div>
+      </ons-toolbar>
+    </ons-page>
+  </ons-template>
+  <!-- ここまでスライドメニュー -->
+  
+
+<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
+
+<script type="text/javascript" src="js/firebaseConfig.js"></script>
+  
+<script type="text/javascript" src="js/angularModule.js"></script>
+
+<script type="text/javascript" src="js/accounts.js"></script>
+
+<!--
+  <script type="text/javascript" src="js/formToJson.js"></script>
+-->
+
+<script type="text/javascript" src="js/camera.js"></script>
+
+<script type="text/javascript" src="js/database.js"></script> //page3
+
+
+</body>
+</html>

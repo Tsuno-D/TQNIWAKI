@@ -1,19 +1,32 @@
 <ons-page id="third-page">
+<!--<ons-page>-->
 <!-- <p>データベースに登録</p>
 <form action = "https://us-central1-sotsuken-38cc3.cloudfunctions.net/product" accept-charset="UTF-8" method="post">
     <input type="text"   name="name"></input>
     <input type="text"   name="price"></input>
     <input type="submit" name="submit"></input>
-</form> -->
+</form> 
 
 <h3>データベースからデータを取得</h3>
-<p><div id="Mail"></div></p>
-<hr>
+<ons-list-item expandable tappable>
+  <p><div id="Mail"></div></p>
+  <div class="expandable-content">
+
+    <div onclick="changeDisplay();">
+      <ons-list-item><div id="Company"></div></ons-list-item>
+    </div>
+    <div id="target">
+      <ons-list-item>Item B</ons-list-item>
+    </div>
+  </div>
+</ons-list-item>
+<hr>-->
+
 <h3>データベースに登録</h3>
 <form>
 <input type='text' class="form-control" id="InputA" placeholder="CompanyName">
 <input type='text' class="form-control" id="InputB" placeholder="Jyusho">
+<input type='text' class="form-control" id="InputC" placeholder="Name">
+<input type='text' class="form-control" id="InputD" placeholder="Mail">
 <button onclick="db()">送信</button>
 </form>
-
-</ons-page>

@@ -12,13 +12,14 @@ function DbForList() {
   /*** 取得処理 ***/
   var database = firebase.database();
   var dataRef = database.ref('/Root3/' + useruid + '/Company');
+  var love = 1;
   dataRef.once('value', function (snapshot) {
     snapshot.forEach(function (childSnapshot) {
       var companyName = childSnapshot.val().CompanyName;
       var CID = childSnapshot.key;
 
       var dataRef = database.ref('/Root3/' + useruid + '/Company/'+ CID + '/Friends');
-      var love = 1;
+      love = 1;
       dataRef.once('value', function (snapshot) {
         snapshot.forEach(function (childSnapshot) {
           //var companyName = childSnapshot.val().CompanyName;

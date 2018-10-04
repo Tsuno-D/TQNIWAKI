@@ -21,6 +21,7 @@ function db() {
     var useruid = user.uid;
   }else{
     console.log("UserNotLogin");
+    exit();
   }
   /*** 送信用データ準備 ***/
 

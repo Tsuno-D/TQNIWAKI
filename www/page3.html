@@ -1,4 +1,12 @@
 <ons-page id="third-page">
+  <ons-toolbar>
+    <div class="left">
+      <ons-toolbar-button onclick="fn.open()">
+        <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+      </ons-toolbar-button>
+    </div>
+    <div class="center"> 名刺登録 </div>
+  </ons-toolbar>
 <!--<ons-page>-->
 <!-- <p>データベースに登録</p>
 <form action = "https://us-central1-sotsuken-38cc3.cloudfunctions.net/product" accept-charset="UTF-8" method="post">
@@ -6,12 +14,10 @@
     <input type="text"   name="price"></input>
     <input type="submit" name="submit"></input>
 </form> 
-
 <h3>データベースからデータを取得</h3>
 <ons-list-item expandable tappable>
   <p><div id="Mail"></div></p>
   <div class="expandable-content">
-
     <div onclick="changeDisplay();">
       <ons-list-item><div id="Company"></div></ons-list-item>
     </div>
@@ -22,11 +28,31 @@
 </ons-list-item>
 <hr>-->
 
-<h3>データベースに登録</h3>
-<form>
-<input type='text' class="form-control" id="InputA" placeholder="CompanyName">
-<input type='text' class="form-control" id="InputB" placeholder="Jyusho">
-<input type='text' class="form-control" id="InputC" placeholder="Name">
-<input type='text' class="form-control" id="InputD" placeholder="Mail">
-<button onclick="db()">送信</button>
-</form>
+<ons-card>
+        <div class="bubble"><img src="./pic/BusinessMan.png"></div>
+        <div class="title" style="text-align: center">
+          登録情報を入力してください
+        </div>
+        <div class="content" >
+          <ons-list>
+            <div style="text-align: center; margin-top: 30px;">
+            <p>
+              <ons-input id="InputA" modifier="underbar" placeholder="会社名" float></ons-input>
+            </p>
+              <p>
+              <ons-input id="InputB" modifier="underbar" placeholder="住所" float></ons-input>
+            </p>
+            <p>
+              <ons-input id="InputC" modifier="underbar" placeholder="氏名" float></ons-input>
+            </p>
+            <p>
+              <ons-input id="InputD" modifier="underbar" placeholder="メールアドレス" float></ons-input>
+            </p>
+            <p style="margin-top: 30px;">
+              <ons-button onclick="db()">登録</ons-button>
+            </p>
+            
+          </ons-list>
+        </div>
+      </ons-card>
+</ons-page>

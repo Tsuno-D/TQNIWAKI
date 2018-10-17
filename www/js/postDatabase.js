@@ -20,6 +20,7 @@ function db() {
   if (user != null) {
     var useruid = user.uid;
   }else{
+    alert("UserNotLogin");
     console.log("UserNotLogin");
     exit();
   }
@@ -44,12 +45,17 @@ function db() {
     var CID = "COM" + preCID;
     var MID = "HUMAN" + preMID;
 
-    var updates = {};
-    updates['Root3/' + useruid + '/' + 'MyName'] = '仮置きマイネーム';
-    updates[Asaka + CID + '/CompanyName'] = FromInputA;
-    updates[Asaka + CID + '/Jyusho'] = FromInputB;
-    updates[Asaka + CID + '/Friends/' + MID + '/Name'] = FromInputC;
-    updates[Asaka + CID + '/Friends/' + MID + '/Mail'] = FromInputD;
+    if(FromInputA!=""&&FromInputB!=""&&FromInputC!=""&&FromInputD!=""){
+      var updates = {};
+      updates['Root3/' + useruid + '/' + 'MyName'] = '仮置きマイネーム';
+      updates[Asaka + CID + '/CompanyName'] = FromInputA;
+      updates[Asaka + CID + '/Jyusho'] = FromInputB;
+      updates[Asaka + CID + '/Friends/' + MID + '/Name'] = FromInputC;
+      updates[Asaka + CID + '/Friends/' + MID + '/Mail'] = FromInputD;
+      alert("登録しました");
+    }else{
+      alert("なんか足んねぇよなぁ？");
+    }
 
 
 

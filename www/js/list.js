@@ -4,6 +4,7 @@ function DbForList() {
   if (user != null) {
     var useruid = user.uid;
   }else{
+    alert("UserNotLogin");
     console.log("UserNotLogin");
     var companyName = "UserNotLogin";
     exit();
@@ -16,6 +17,7 @@ function DbForList() {
   dataRef.once('value', function (snapshot) {
     snapshot.forEach(function (childSnapshot) {
       var companyName = childSnapshot.val().CompanyName;
+      var jysho = childSnapshot.val().Jyusho;
       var CID = childSnapshot.key;
 
       var dataRef = database.ref('/Root3/' + useruid + '/Company/'+ CID + '/Friends');
@@ -44,4 +46,10 @@ function changeDisplay(int) {
   } else {
     str.style.display = "block";
   }
+}
+
+/*** リスト全消し ***/
+function ResetList() {
+     var contentBlock = document.getElementById('contentBlock');
+     contentBlock.innerHTML = "";
 }

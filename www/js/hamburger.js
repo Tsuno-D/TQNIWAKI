@@ -17,15 +17,17 @@
         var tab = event.index;  // tab変数にタブindexを格納
         if(tab == 0) {
              console.log("ページ１開かれた");
-              //document.getElementById("message").textContent = "Tab2が開きました";
-              document.getElementById("test").style.display ="block";
+              document.getElementById("forP1A").style.display ="block";
+              document.getElementById("forP1B").style.display ="block";
               //注:ハンバーガーのホームを押したときと同じような見た目になるよう処理しなければならない
         }else if(tab == 1){
              console.log("ページ２開かれた");
-             document.getElementById("test").style.display ="none";
+             document.getElementById("forP1A").style.display ="none";
+             document.getElementById("forP1B").style.display ="none";
         }else if(tab == 2){
               console.log("ページ３開かれた");
-              document.getElementById("test").style.display ="block";
+              document.getElementById("forP1A").style.display ="none";
+              document.getElementById("forP1B").style.display ="none";
         }else{
         };
     });

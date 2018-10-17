@@ -1,24 +1,22 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-  <meta charset="utf-8">
-  <!--ここからcamera用metaタグ -->
-  <meta name="format-detection" content="telephone=no">
-  <meta name="msapplication-tap-highlight" content="no">
-  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-  <!--ここまでcamera用metaタグ-->
-  <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
-  <script src="components/loader.js"></script>
-  <script src="lib/angular/angular.min.js"></script>
-  <script src="lib/onsenui/js/onsenui.min.js"></script>
-  <script src="lib/onsenui/js/angular-onsenui.min.js"></script>
-  <link rel="stylesheet" href="components/loader.css">
-  <link rel="stylesheet" href="lib/onsenui/css/onsenui.css">
-  <link rel="stylesheet" href="lib/onsenui/css/onsen-css-components.css">
-  <link rel="stylesheet" href="css/style.css">
-
-  
-
+    <meta charset="utf-8">
+    <!--ここからcamera用metaタグ -->
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <!--ここまでcamera用metaタグ-->
+    <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+    <script src="components/loader.js"></script>
+    <script src="lib/angular/angular.min.js"></script>
+    <script src="lib/onsenui/js/onsenui.min.js"></script>
+    <script src="lib/onsenui/js/angular-onsenui.min.js"></script>
+    <link rel="stylesheet" href="components/loader.css">
+    <link rel="stylesheet" href="lib/onsenui/css/onsenui.css">
+    <link rel="stylesheet" href="lib/onsenui/css/onsen-css-components.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bubble.css">
     <script>
         // PhoneGap event handler
         document.addEventListener("deviceready", onDeviceReady, false);
@@ -26,94 +24,159 @@
             console.log("PhoneGap is ready");
         }
     </script>
-
     <script type="text/javascript" src="js/hamburger.js"></script>
-
 </head>
-
 <body>
-  <!-- ここからスライドメニュー -->
-  <ons-splitter>
-    <ons-splitter-side id="menu" side="left" width="220px" collapse swipeable>
-      <ons-page>
-        <ons-list>
-          <ons-list-item onclick="fn.load('home.html')" tappable> Home </ons-list-item>
-          <ons-list-item onclick="fn.load('settings.html')" tappable> Settings </ons-list-item>
-          <ons-list-item onclick="fn.load('about.html')" tappable> About </ons-list-item>
-          <ons-list-item id="test" onclick="fn.load('about.html')" tappable>
-            <p id="test">page2のとき非表示</p>
-          </ons-list-item>
-        </ons-list>
-      </ons-page>
-    </ons-splitter-side>
-    <ons-splitter-content id="content" page="home.html"></ons-splitter-content>
-  </ons-splitter>
-  <ons-template id="home.html">
-    <ons-page>
-      <ons-toolbar>
-        <div class="left">
-          <ons-toolbar-button onclick="fn.open()">
-            <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
-          </ons-toolbar-button>
+    <!-- ここからスライドメニュー -->
+    <ons-splitter>
+        <ons-splitter-side id="menu" side="left" width="220px" collapse swipeable>
+            <ons-page>
+              <div ng-controller="HelloController as hello">
+                <ons-list>
+                    <ons-list-item onclick="fn.load('home.html');DbForList()" tappable> Home </ons-list-item>
+                    <!--
+                    <ons-list-item onclick="fn.load('settings.html')" tappable> Settings </ons-list-item>
+                    <ons-list-item onclick="fn.load('about.html')" tappable> About </ons-list-item>
+                    -->
+                    <ons-list-item id="forP1A" onclick="fn.load('page2.html')" tappable>
+                        (newpage1用) page2
+                    </ons-list-item>
+                    <ons-list-item id="forP1B" onclick="fn.load('page3.html')" tappable>
+                        (newpage1用) page3
+                    </ons-list-item>
+
+                    <ons-list-item onclick="createAlertDialog()" tappable> ログアウト </ons-list-item>
+                    </ons-list>
+                </div>
+            </ons-page>
+        </ons-splitter-side>
+        <ons-splitter-content id="content" page="home.html"></ons-splitter-content>
+    </ons-splitter>
+    <ons-template id="home.html">
+        <ons-page>
+            <ons-toolbar>
+                <div class="left">
+                    <ons-toolbar-button onclick="fn.open()">
+                        <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+                    </ons-toolbar-button>
+                </div>
+                <div class="right">
+                    <ons-toolbar-button onclick="fn.open()">
+                        <ons-icon icon="eraser"></ons-icon>
+                    </ons-toolbar-button>
+                </div>
+                <div class="center"> Laziness </div>
+            </ons-toolbar>
+            <!-- ここからタブ機能 -->
+            <ons-page ng-controller="HelloController as hello">
+                <ons-tabbar position="bottom">
+                    <ons-tab page="newpage1.html" label="名刺" icon="address-card" active></ons-tab>
+				      	<ons-tab page="newpage2.html" label="チャット" icon="comments"></ons-tab>
+		      			<ons-tab page="newpage3.html" label="タスク" icon="calendar"></ons-tab>
+                </ons-tabbar>
+            </ons-page>
+            <!-- ここまでタブ機能 -->
+        </ons-page>
+    </ons-template>
+    <ons-template id="settings.html">
+        <ons-page>
+            <ons-toolbar>
+                <div class="left">
+                    <ons-toolbar-button onclick="fn.open()">
+                        <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+                    </ons-toolbar-button>
+                </div>
+                <div class="center"> Settings </div>
+            </ons-toolbar>
+        </ons-page>
+    </ons-template>
+    <ons-template id="about.html">
+        <ons-page>
+            <ons-toolbar>
+                <div class="left">
+                    <ons-toolbar-button onclick="fn.open()">
+                        <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+                    </ons-toolbar-button>
+                </div>
+                <div class="center"> About </div>
+            </ons-toolbar>
+        </ons-page>
+    </ons-template>
+    <!-- ここまでスライドメニュー -->
+    <!-- login Dialog -->
+    <div id="start">
+    <p><div class="bubble"><img src="./pic/BusinessMan.png"></div></p>
+    <ons-template id="login.html">
+    <ons-dialog ng-controller="HelloController as hello">
+        <br>
+        <br>
+        <ons-toolbar>
+            <div class="center">ログイン</div>
+        </ons-toolbar>
+        <section style="margin: 10px;" ng-hide="hello.isLoggedIn">
+            <p>メールアドレス</p>
+            <p>
+                <ons-input modifier="underbar" ng-model="hello.newMail" placeholder="メールアドレス" float></ons-input>
+            </p>
+            <p>パスワード</p>
+            <p>
+                <ons-input modifier="underbar" ng-model="hello.newPassword" placeholder="password" type="password" float></ons-input>
+            </p>
+            <ons-button ng-click="hello.regi()">新規登録</ons-button>
+        </section>
+        <section style="margin: 10px;" ng-hide="hello.isLoggedIn">
+            <p>メールアドレス</p>
+            <p>
+                <ons-input modifier="underbar" ng-model="hello.mail" placeholder="メールアドレス" float></ons-input>
+            </p>
+            <p>パスワード</p>
+            <p>
+                <ons-input modifier="underbar" ng-model="hello.password" placeholder="password" type="password" float></ons-input>
+            </p>
+            <ons-button ng-click="hello.login()">ログイン</ons-button>
+        </section>
+        </ons-dialog>
+    </ons-template>
+    <!-- (閉)login Dialog -->
+
+    <!-- logout Dialog -->
+    <template id="logout.html">
+      <ons-alert-dialog id="logoutDialog" modifier="rowfooter" ng-controller="HelloController as hello" cancelable>
+        <div class="alert-dialog-title">ログアウト</div>
+        <div class="alert-dialog-content">
+           本当にログアウトしますか？
         </div>
-        <div class="center"> Main </div>
-      </ons-toolbar>
-      <!-- ここからタブ機能 -->
-      <ons-page ng-controller="HelloController as hello">
-        <ons-tabbar position="auto">
-          <ons-tab page="page1.html" label="Page 1" icon="square" active></ons-tab>
-          <ons-tab page="page2.html" label="Page 2" icon="square"></ons-tab>
-          <ons-tab page="page3.html" label="Page 3" icon="square"></ons-tab>
-        </ons-tabbar>
-      </ons-page>
-      <!-- ここまでタブ機能 -->
-    </ons-page>
-  </ons-template>
-  <ons-template id="settings.html">
-    <ons-page>
-      <ons-toolbar>
-        <div class="left">
-          <ons-toolbar-button onclick="fn.open()">
-            <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
-          </ons-toolbar-button>
+        <div class="alert-dialog-footer">
+          <ons-alert-dialog-button ng-click="hello.logout()" onclick="hideAlertDialog()">はい</ons-alert-dialog-button>
+          <ons-alert-dialog-button onclick="hideAlertDialog()">いいえ</ons-alert-dialog-button>
         </div>
-        <div class="center"> Settings </div>
-      </ons-toolbar>
-    </ons-page>
-  </ons-template>
-  <ons-template id="about.html">
-    <ons-page>
-      <ons-toolbar>
-        <div class="left">
-          <ons-toolbar-button onclick="fn.open()">
-            <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
-          </ons-toolbar-button>
-        </div>
-        <div class="center"> About </div>
-      </ons-toolbar>
-    </ons-page>
-  </ons-template>
-  <!-- ここまでスライドメニュー -->
-  
+      </ons-alert-dialog>
+    </template>
+    <!-- (閉)logout Dialog -->
 
-<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
+    <!-- Dialog -->
+    <ons-template id="listplus.html">
+      <ons-dialog>
+        <p>あ</p>
+      </ons-dialog>
+    </ons-template>
+    <!-- (閉)Dialog -->
 
-<script type="text/javascript" src="js/firebaseConfig.js"></script>
-  
-<script type="text/javascript" src="js/angularModule.js"></script>
-
-<script type="text/javascript" src="js/accounts.js"></script>
-
-<!--
+    <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
+    <script type="text/javascript" src="js/firebaseConfig.js"></script>
+    <script type="text/javascript" src="js/angularModule.js"></script>
+    <script type="text/javascript" src="js/accounts.js"></script>
+    <!--
   <script type="text/javascript" src="js/formToJson.js"></script>
 -->
+    <script type="text/javascript" src="js/camera.js"></script> <!--元page2-->
+    <script type="text/javascript" src="js/list.js"></script> <!-- newpage1-->
+    <script type="text/javascript" src="js/postDatabase.js"></script>  <!--page3-->
+    <script type="text/javascript" src="js/dialog.js"></script>
 
-<script type="text/javascript" src="js/camera.js"></script> //元page2
-
-<script type="text/javascript" src="js/list.js"></script> //page2
-
-<script type="text/javascript" src="js/postDatabase.js"></script> //page3
-
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <!-- Jquery -->
+    <script type="text/javascript" src="js/dragreplace.js"></script>
 
 </body>
 </html>

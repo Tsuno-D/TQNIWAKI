@@ -1,0 +1,18 @@
+<ons-page id="newP1">
+  <center><h3>データベースからデータを取得</h3></center><hr>
+    <button onclick="ResetList();DbForList()">再取得</button>
+  <div id="contentBlock"></div>
+
+
+  <ons-speed-dial position="bottom right" direction="up">
+    <ons-fab>
+      <ons-icon icon="md-plus"></ons-icon>
+    </ons-fab>
+    <ons-speed-dial-item onclick="fn.load('page2.html')" tappable>
+      <ons-icon icon="md-camera"></ons-icon>
+    </ons-speed-dial-item>
+    <ons-speed-dial-item onclick="fn.load('page3.html')" tappable>
+      <ons-icon icon="md-edit"></ons-icon>
+    </ons-speed-dial-item>
+  </ons-speed-dial>
+</ons-page>

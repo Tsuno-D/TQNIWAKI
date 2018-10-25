@@ -1,15 +1,16 @@
+//登録フォーム修正版
 //ここからデータ取得
 var database = firebase.database();
 var dataRef = database.ref("Root/UID_" + 0 + "/CompanyID_" + 0);
 dataRef.once("value")
   .then(function (snapshot) {
-    document.getElementById("Mail").innerHTML = snapshot.child("/MEN_" + 0 + "/Mail").val();
+    //document.getElementById("Mail").innerHTML = snapshot.child("/MEN_" + 0 + "/Mail").val();
   });
 
 var dataRef = database.ref("Root/UID_" + 0);
 dataRef.once("value")
   .then(function (snapshot) {
-    document.getElementById("Company").innerHTML = snapshot.child("/CompanyID_" + 0 + "/CompanyName").val();
+    //document.getElementById("Company").innerHTML = snapshot.child("/CompanyID_" + 0 + "/CompanyName").val();
   });
 
 
@@ -52,12 +53,14 @@ function db() {
       updates[Asaka + CID + '/Jyusho'] = FromInputB;
       updates[Asaka + CID + '/Friends/' + MID + '/Name'] = FromInputC;
       updates[Asaka + CID + '/Friends/' + MID + '/Mail'] = FromInputD;
-      alert("登録しました");
+      ons.notification.toast('登録しました', {
+      timeout: 2000
+      });
     }else{
-      alert("なんか足んねぇよなぁ？");
+       ons.notification.toast('登録用情報が足りません', {
+        timeout: 2000
+      });
     }
-
-
 
 
     /*** 消さないで ***/

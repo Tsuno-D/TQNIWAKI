@@ -1,7 +1,10 @@
 <ons-page id="newP1">
-  <center><h3>データベースからデータを取得</h3></center><hr>
-    <button onclick="ResetList();DbForList()">再取得</button>
-  <div id="contentBlock"></div>
+<!-- list.js removeFromDB -->
+  <center><h3>データ取得管理くん</h3></center>
+    <button onclick="ResetList();DbForList()">再取得test</button>
+    <button onclick="toggleRemoveBtns()">削除ボタン開閉</button>
+    <hr>
+  <div id="contentBlock"> </div>
 
 
   <ons-speed-dial position="bottom right" direction="up">
@@ -15,4 +18,104 @@
       <ons-icon icon="md-edit"></ons-icon>
     </ons-speed-dial-item>
   </ons-speed-dial>
+
+<script>
+function DbForList() {
+  /*** アカウント情報取得 ***/
+  var user = firebase.auth().currentUser;
+  if (user != null) {
+    var useruid = user.uid;
+  }else{
+    alert("UserNotLogin");
+    console.log("UserNotLogin");
+    var companyName = "UserNotLogin";
+    exit();
+  }
+
+  /*** 取得処理 ***/
+  var database = firebase.database();
+  var dataRef = database.ref('/Root3/' + useruid + '/Company');
+
+  const ArrayMax = 80;
+  var Cno = 1;                              //Company取得用no
+  var CID_array = new Array(ArrayMax);      //CID取得用
+  var CNM_array = new Array(ArrayMax);      //company name取得用
+  var CJS_array = new Array(ArrayMax);      //company jyusho取得用
+  var Fno = 1;                              //Company取得用no
+  var FID_array = new Array(ArrayMax);      //FID取得用
+  var FNM_array = new Array(ArrayMax);      //Friends name取得用
+  var FML_array = new Array(ArrayMax);      //Friends mail取得用
+  
+  var contentBlock = document.getElementById('contentBlock');
+  var love = 1;
+
+  dataRef.once('value', function (snapshot) {
+    snapshot.forEach(function (childSnapshot) {
+      CID_array[Cno] = childSnapshot.key;
+      CNM_array[Cno] = childSnapshot.val().CompanyName;
+      CJS_array[Cno] = childSnapshot.val().Jyusho;
+
+      /* listheader */
+      contentBlock.innerHTML += 
+          '<ons-list id="Clist_' + Cno + '">'+
+          '<ons-list-header>THE HEADER</ons-list-header>' +
+          '<ons-list-item expandable>' +
+          '<div id="removeBtn' + Cno + '" onclick="removeCompanyConfirm(\'' + CID_array[Cno] + '\',\'' + CNM_array[Cno] + '\',\'' + Cno + '\')">' +
+          '<ons-icon icon="times-circle" class="list-item__icon"></ons-icon>' +
+          '</div>' +
+          '<ons-icon icon="building" class="list-item__icon"></ons-icon>' +
+          '<div>' +
+            CNM_array[Cno] +
+          '</div>' +
+          '<div class="expandable-content">' +  //ここからエクスパンダブル
+          '<ons-list-item class="listfix4">' +
+          '<div><ons-icon icon="square" class="list-item__icon"></ons-icon></div>' +
+          '<div>'+ CJS_array[Cno] +'</div>' +
+          '</ons-list-item>' +
+          '<div class="listfix" id="CList_'+ Cno +'"></div>' +       //ここにlistBodyが入る
+          '</ons-list>';
+
+      //Fno = 1; これはいらない。Fnoは全リストで一意の値とする
+      var NCno = Cno;               //受け渡す
+      var dataRef2 = database.ref('/Root3/' + useruid + '/Company/'+ CID_array[Cno] + '/Friends');
+      dataRef2.once('value', function (snapshot) {
+        snapshot.forEach(function (childSnapshot) {
+          FID_array[Fno] = childSnapshot.key;
+          FNM_array[Fno] = childSnapshot.val().Name;
+          FML_array[Fno] = childSnapshot.val().Mail;
+          //console.log(NCno);
+
+          /* listBody */
+          $('<ons-list-item modifier="tappable" class="listfix2" id=FList_'+ Fno +'>').text("").appendTo("#CList_"+ NCno);
+          $('<ons-icon icon="user" class="list-item__icon"></ons-icon>').text("").appendTo("#FList_"+ Fno);
+          $('<ons-list-item class="listfix3"' + 'onclick="changeDisplay(' + Fno + ');">').text(FNM_array[Fno]).appendTo("#FList_"+ Fno);
+
+          $('<ons-list-item id="target_' + Fno + '">').text(FML_array[Fno]).insertAfter("#FList_"+ Fno);
+          $('<ons-list-item id="target2_' + Fno + '">').text(FML_array[Fno]).insertAfter("#target_"+ Fno);
+
+
+          document.getElementById("target_" + Fno).style.display = "none";
+          document.getElementById("target2_" + Fno).style.display = "none";
+
+          Fno++;
+        });
+      });
+
+      /* footer */
+      contentBlock.innerHTML +=  '';
+
+      document.getElementById("removeBtn" + Cno).style.display = "none";
+
+      Cno++;
+    });
+  });
+}
+
+function WaitDbForList() {
+  setTimeout('DbForList()', 250);
+}
+</script>
 </ons-page>
+
+
+

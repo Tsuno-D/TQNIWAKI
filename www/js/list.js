@@ -1,46 +1,12 @@
-function DbForList() {
-  /*** アカウント情報取得 ***/
-  var user = firebase.auth().currentUser;
-  if (user != null) {
-    var useruid = user.uid;
-  }else{
-    alert("UserNotLogin");
-    console.log("UserNotLogin");
-    var companyName = "UserNotLogin";
-    exit();
-  }
+/*************************************************
+ *  DbForList()はnewpage1に行きました
+ *  WaitDbForList()もそこにあります
+ *************************************************/
 
-  /*** 取得処理 ***/
-  var database = firebase.database();
-  var dataRef = database.ref('/Root3/' + useruid + '/Company');
-  var love = 1;
-  dataRef.once('value', function (snapshot) {
-    snapshot.forEach(function (childSnapshot) {
-      var companyName = childSnapshot.val().CompanyName;
-      var jysho = childSnapshot.val().Jyusho;
-      var CID = childSnapshot.key;
-
-      var dataRef = database.ref('/Root3/' + useruid + '/Company/'+ CID + '/Friends');
-      love = 1;
-      dataRef.once('value', function (snapshot) {
-        snapshot.forEach(function (childSnapshot) {
-          //var companyName = childSnapshot.val().CompanyName;
-          var childName = childSnapshot.val().Name;
-          var childMail = childSnapshot.val().Mail;
-
-          var contentBlock = document.getElementById('contentBlock');
-          contentBlock.innerHTML += '<ons-list-item expandable tappable>' + companyName + '<div class="expandable-content"><div onclick="changeDisplay(' + love + ');"><ons-list-item modifier="tappable chevron">' + childName + '</ons-list-item></div><div id="target' + love + '"><ons-list-item>' + childMail + '</ons-list-item></div></div></ons-list-item>';
-          document.getElementById("target" + love).style.display = "none";
-          love++;
-        });
-      });
-    });
-  });
-}
-
-/*** リストの表示制御 ***/
+/*** リストの表示制御(開閉) ***/
 function changeDisplay(int) {
-  var str = document.getElementById("target" + int);
+  var str = document.getElementById("target_" + int);
+
   if (str.style.display == "block") {
     str.style.display = "none";
   } else {
@@ -53,3 +19,45 @@ function ResetList() {
      var contentBlock = document.getElementById('contentBlock');
      contentBlock.innerHTML = "";
 }
+
+/*** リストの削除制御(表示上のみ) ***/
+/*** DB側はremoveFromDB.js ***/
+function removeDisplayC(int) {
+  console.log('remove_listC:' + int);
+  var str = document.getElementById("Clist_" + int);
+  str.style.display = "none";
+}
+
+/*** 削除ボタン(開閉) ***/
+function toggleRemoveBtns() {
+  for(var i=1;i<80;i++){
+    var str = document.getElementById("removeBtn" + i);
+    if (str.style.display == "block") {
+        str.style.display = "none";
+    } else {
+         str.style.display = "block";
+    }
+  }
+}
+
+/*** 削除確認 ***/
+function removeCompanyConfirm(str1,str2,str3) {
+          ons.notification.confirm({
+            title: 'あらあと',
+            messageHTML: str2 + ' を削除してもよろしいですか？',
+            buttonLabels: ['ええで', 'やだ'],
+            animation: 'default',
+            cancelable: true,
+            callback: function(index) {
+                if(index == -1) {
+                    console.log('confirm: cancel');
+                } else if(index == 0) {
+                    console.log('confirm: yes');
+                    removeDisplayC(str3);
+                    rmDb(str1);
+                } else if(index == 1) {
+                    console.log('confirm: no');
+                }
+            }
+        })
+};

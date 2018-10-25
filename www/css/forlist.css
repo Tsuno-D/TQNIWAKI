@@ -1,0 +1,25 @@
+.listfix4{    /*外リスト内側*/
+  text-align: justify;
+}
+
+
+.listfix3{
+  border-color: none;
+  /* 消さないで */
+}
+
+.listfix2{    /*中リスト内側*/
+  height: 8vh;
+  border: 1px solid;
+  border-color: blanchedalmond;
+
+  background-color: white;
+}
+
+.listfix{    /*中リスト外側*/
+  border: 3px double;
+  border-color: white;
+  
+  background-color: blanchedalmond;
+
+}

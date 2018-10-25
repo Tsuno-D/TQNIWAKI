@@ -40,6 +40,7 @@ ons.ready(function () {
       if (user) {
         // ログイン状態
         _this.isLoggedIn = true;
+        ResetList();
         hideDialog();
         DbForList();
         document.getElementById("start").style.display = "none";

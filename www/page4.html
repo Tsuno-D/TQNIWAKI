@@ -1,0 +1,65 @@
+<ons-page>
+	<ons-toolbar>
+		<div class="left">
+			<ons-toolbar-button onclick="fn.open()">
+				<ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+			</ons-toolbar-button>
+		</div>
+		<div class="center">ここに相手の名前</div>
+	</ons-toolbar>
+	<div id="message_box">
+		<!-- <input id="name" placeholder="名前"> -->
+	<p style="margin-top: 7px";>
+    <input id="message">
+		<button id="send">投稿</button>
+	</p>
+	</div>
+      <div id="messages"></div>
+
+	<script>
+		var my_uid = firebase.auth().currentUser.uid;
+        // データベースの参照を準備
+        var messagesRef1 = firebase.database().ref("/ChatRoot/" + my_uid + "/friends/" + c_uid + "/m_log")
+        var messagesRef2 = firebase.database().ref("/ChatRoot/" + c_uid + "/friends/" + my_uid + "/m_log")
+
+        // 既存メッセージを表示
+        i=1;
+        messagesRef1.off();
+        messagesRef1.on('child_added', function (snapshot) {
+            var msg = snapshot.val();
+            if (msg.name == my_uid) {
+                c_type = "my";
+                face = "./pic/hime_takabisya_laugh.png"
+                name = "女";
+                time = "10:00"
+            } else { 
+                c_type = "enemy" 
+                face = "./pic/BusinessMan.png"
+                name ="男";
+                time = "10:00"
+                };
+            i++;
+            $('<div class="container" id="messages_'+i+'">').text("").appendTo('#messages');
+            $('<div class= "container_icon">').html('<img src="'+ face + '"width="60px" height="60px" class="container_photo">').appendTo('#messages_'+i);
+             $('<div class="container_child" id="messages_child'+i+'">').text("").appendTo('#messages_'+i);
+            $('<div class="name">').text(name).appendTo('#messages_child'+i);
+
+            $('<div class= ' + c_type + '>').text(msg.body).appendTo('#messages_child'+i);
+            
+        });
+
+
+        $('#send').click(function () {
+            // 新規メッセージを投稿
+            messagesRef1.push({
+                name: my_uid,
+                body: $('#message').val()
+            });
+            messagesRef2.push({
+                name: my_uid,
+                body: $('#message').val()
+            });
+        });
+
+	</script>
+</ons-page>

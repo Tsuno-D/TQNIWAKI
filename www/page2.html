@@ -1,23 +1,151 @@
 <ons-page id="second-page">
-  <ons-toolbar>
-                <div class="left">
-                    <ons-toolbar-button onclick="fn.open()">
-                        <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
-                    </ons-toolbar-button>
-                </div>
-                <div class="center"> 元元page2 </div>
-            </ons-toolbar>
+	<ons-toolbar>
+		<div class="left">
+			<ons-toolbar-button onclick="fn.open()">
+				<ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+			</ons-toolbar-button>
+		</div>
+		<div class="center"> 入力フォーム </div>
+	</ons-toolbar>
 
-<div class="app">
-      <h1>Camera</h1>
-      <div>
-          <button id="shoot-button" onclick="shoot()">写真を撮る</button> 
-      </div>
-          <img id="photo" height="400">   
-      
-  </div>
+
+	<div class="content">
+		<ons-card>
+			<img id="photo" style="max-width: 90%;">
+			<img style="max-width: 90vw;">
+			<div class="title">
+				<center>
+					登録情報を入力して下さい</center>
+			</div>
+
+
+			<ons-list>
+				<p td align="center">
+					<ons-input modifier="underbar" class="replaceable" placeholder="会社名" id="InputA" float></ons-input>
+				</p>
+				<p td align="center">
+					<ons-input modifier="underbar" class="replaceable" placeholder="住所" id="InputB" float></ons-input>
+				</p>
+				<p td align="center">
+					<ons-input modifier="underbar" class="replaceable" placeholder="氏名" id="InputC" float></ons-input>
+				</p>
+				<p td align="center">
+					<ons-input modifier="underbar" class="replaceable" placeholder="メールアドレス" id="InputD" float></ons-input>
+				</p td align="center">
+				<ul class="replaceableList2" id="text_tag"></ul>
+			</ons-list>
+			<p style="margin-top: 30px; margin-bottom: 15px; text-align:center;">
+				<ons-button onclick="db()">　登　録　</ons-button>
+			</p>
+		</ons-card>
+	</div>
+  <!-- ここから写真撮影用フッター -->
+	<div class="footer">
+		<ons-bottom-toolbar>
+			<ons-button modifier="large--quiet" id="shoot-button" onclick="shoot()">
+				<ons-icon icon="md-camera"></ons-icon>　写真を撮る</ons-button>
+			</ons-toolbar-button>
+		</ons-bottom-toolbar>
+	</div>
+   <!-- ここまで  -->
+	<script>
+		// li要素の追加
+    function add_li() {
+      i = 0;
+      card_text.forEach(function (value) {
+        $('#text_tag').prepend('<li id = ' + i + ' class = "text_tag_li">' + value + '</li>');
+        i++;
+      });
+      $('.replaceableList2 li').replaceable();
+    }
+    function substr(text, len, truncation) {
+      if (truncation === undefined) { truncation = ''; }
+      var text_array = text.split('');
+      var count = 0;
+      var str = '';
+      for (i = 0; i < text_array.length; i++) {
+        var n = escape(text_array[i]);
+        if (n.length < 4) count++;
+        else count += 2;
+        if (count > len) {
+          return str + truncation;
+        }
+        str += text.charAt(i);
+      }
+      return text;
+    }
+    (function () {
+      'use strict';
+      $(function () {
+        var replaceable = $('.replaceableList2 li').replaceable();
+      });
+    }());
+    var element;
+    var element1 = document.getElementById('InputA');
+    var element2 = document.getElementById('InputB');
+    var element3 = document.getElementById('InputC');
+    var element4 = document.getElementById('InputD');
+    var rect1;
+    var rect2;
+    var rect3;
+    var rect4;
+    var texttext;
+    var texttext2;
+    var imageData2;
+	</script>
+
+	<script>
+		// Google Cloud Vision API関連
+    var card_img;
+    var card_text;
+    const api_key = `AIzaSyDtz6ZvaRFUbpDJMMfoeWeuq5NLaCy01Tc`;
+    const url = `https://vision.googleapis.com/v1/images:annotate`;
+    // Send API Request to Cloud Vision API
+    const sendAPI = (base64string) => {
+      let body = {
+        requests: [
+          { image: { content: base64string }, features: [{ type: 'TEXT_DETECTION' }] }
+        ]
+      };
+      let xhr = new XMLHttpRequest();
+      xhr.open('POST', `${url}?key=${api_key}`, true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      const p = new Promise((resolve, reject) => {
+        xhr.onreadystatechange = () => {
+          if (xhr.readyState != XMLHttpRequest.DONE) return;
+          if (xhr.status >= 400) return reject({ message: `Failed with ${xhr.status}:${xhr.statusText}` });
+          resolve(JSON.parse(xhr.responseText));
+        };
+      })
+      xhr.send(JSON.stringify(body));
+      return p;
+    }
+
+    // Event handling
+    function g_api() {
+      if (!imageData2 || imageData2.length == 0) return;
+      Promise.resolve(imageData2)
+        .then(sendAPI)
+        .then(res => {
+          console.log('SUCCESS!', res);
+          card_img = JSON.stringify(res, null, 2);
+          card_img = JSON.parse(card_img);
+          source = card_img.responses[0].textAnnotations[0].description;
+          k = (/\n|\s+/);
+          card_text = source.split(k);
+          card_text = $.grep(card_text, function (e) { return e !== ""; })
+          add_li();
+        })
+        .catch(err => {
+          console.log('FAILED:(', err);
+        });
+
+    }
+	</script>
+
+	</ons-card>
 </ons-page>
-<!-- <ons-page id="second-page">
+<!-- <ons-page id="second-page"> 
   <p>
     This is the second page.
   </p>

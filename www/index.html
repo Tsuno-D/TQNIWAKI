@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="lib/onsenui/css/onsen-css-components.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/bubble.css">
+    <link rel="stylesheet" href="css/forlist.css">
+    <link rel="stylesheet" href="css/chat.css">
     <script>
         // PhoneGap event handler
         document.addEventListener("deviceready", onDeviceReady, false);
@@ -33,7 +35,7 @@
             <ons-page>
               <div ng-controller="HelloController as hello">
                 <ons-list>
-                    <ons-list-item onclick="fn.load('home.html');DbForList()" tappable> Home </ons-list-item>
+                    <ons-list-item onclick="fn.load('home.html');WaitDbForList()" tappable> Home </ons-list-item>
                     <!--
                     <ons-list-item onclick="fn.load('settings.html')" tappable> Settings </ons-list-item>
                     <ons-list-item onclick="fn.load('about.html')" tappable> About </ons-list-item>
@@ -58,11 +60,6 @@
                 <div class="left">
                     <ons-toolbar-button onclick="fn.open()">
                         <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
-                    </ons-toolbar-button>
-                </div>
-                <div class="right">
-                    <ons-toolbar-button onclick="fn.open()">
-                        <ons-icon icon="eraser"></ons-icon>
                     </ons-toolbar-button>
                 </div>
                 <div class="center"> Laziness </div>
@@ -157,7 +154,7 @@
     <!-- Dialog -->
     <ons-template id="listplus.html">
       <ons-dialog>
-        <p>あ</p>
+        <p>使ってないテンプレ</p>
       </ons-dialog>
     </ons-template>
     <!-- (閉)Dialog -->
@@ -171,12 +168,15 @@
 -->
     <script type="text/javascript" src="js/camera.js"></script> <!--元page2-->
     <script type="text/javascript" src="js/list.js"></script> <!-- newpage1-->
+    <script type="text/javascript" src="js/removeFromDB.js"></script> <!-- newpage1-->
     <script type="text/javascript" src="js/postDatabase.js"></script>  <!--page3-->
     <script type="text/javascript" src="js/dialog.js"></script>
 
     <script type="text/javascript" src="js/jquery.js"></script>
     <!-- Jquery -->
     <script type="text/javascript" src="js/dragreplace.js"></script>
+
+    <script type="text/javascript" src="js/chat.js"></script>
 
 </body>
 </html>

@@ -3,7 +3,7 @@
  * Ver 0.1
  *
  * @author Kazuya Hiruma
- * @custum Yuito Taniwaki
+ * @edit by TQNIWAKI
  */
 var pos;
 (function (win, doc, $) {
@@ -136,6 +136,7 @@ var pos;
 
           element.value += texttext2;
           // alert("挿入しました");
+          //switchで増やす
         }
 
         // not replace, and move to default position with transition.
@@ -170,25 +171,77 @@ var pos;
       function hitCheck(e, pos) {
 
         var $val = $(val),
-          rect = element.getBoundingClientRect();
+          rect1 = element1.getBoundingClientRect();
+        rect2 = element2.getBoundingClientRect();
+        rect3 = element3.getBoundingClientRect();
+        rect4 = element4.getBoundingClientRect();
 
         // hit check
         if (
-          (rect.left <= pos.x && rect.right >= pos.x) &&
-          (rect.top <= pos.y && rect.bottom >= pos.y)
+          (rect1.left <= pos.x && rect1.right >= pos.x) &&
+          (rect1.top <= pos.y && rect1.bottom >= pos.y)
         ) {
-          $("#tintin").addClass('hit');
+          $("#InputA").addClass('hit');
           texttext = document.getElementsByClassName('dragTarget')[0];
           texttext2 = texttext.innerHTML;
           texttext2 = texttext2.replace(/<span class="dragger"><\/span>/g, '');
+          element = element1;
+          $("#InputB").removeClass('hit');
+          $("#InputC").removeClass('hit');
+          $("#InputD").removeClass('hit');
+                    
+        }
+        else if (
+          (rect2.left <= pos.x && rect2.right >= pos.x) &&
+          (rect2.top <= pos.y && rect2.bottom >= pos.y)
+        ) {
+          $("#InputB").addClass('hit');
+          texttext = document.getElementsByClassName('dragTarget')[0];
+          texttext2 = texttext.innerHTML;
+          texttext2 = texttext2.replace(/<span class="dragger"><\/span>/g, '');
+          element = element2;
+          $("#InputA").removeClass('hit');
+          $("#InputC").removeClass('hit');
+          $("#InputD").removeClass('hit');
+          
+        }
+        else if (
+          (rect3.left <= pos.x && rect3.right >= pos.x) &&
+          (rect3.top <= pos.y && rect3.bottom >= pos.y)
+        ) {
+          $("#InputC").addClass('hit');
+          texttext = document.getElementsByClassName('dragTarget')[0];
+          texttext2 = texttext.innerHTML;
+          texttext2 = texttext2.replace(/<span class="dragger"><\/span>/g, '');
+          element = element3;
+          $("#InputA").removeClass('hit');
+          $("#InputB").removeClass('hit');
+          $("#InputD").removeClass('hit');
+        }
+        else if (
+          (rect4.left <= pos.x && rect4.right >= pos.x) &&
+          (rect4.top <= pos.y && rect4.bottom >= pos.y)
+        ) {
+          $("#InputD").addClass('hit');
+          texttext = document.getElementsByClassName('dragTarget')[0];
+          texttext2 = texttext.innerHTML;
+          texttext2 = texttext2.replace(/<span class="dragger"><\/span>/g, '');
+          element = element4;
+          $("#InputA").removeClass('hit');
+          $("#InputB").removeClass('hit');
+          $("#InputC").removeClass('hit');
         }
         else {
           $val.removeClass('hit');
+          $("#InputA").removeClass('hit');
+          $("#InputB").removeClass('hit');
+          $("#InputC").removeClass('hit');
+          $("#InputD").removeClass('hit');
         }
       }
 
       /**
-       * mouse down handler
+       * mouse down handler 
        * @name handleMouseDown
        * @function
        * @param e event object.

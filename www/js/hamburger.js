@@ -12,7 +12,7 @@
         .then(menu.close.bind(menu));
     };
 
-    // ここからメニュー表示操作
+    // タブ切り替え時のハンバーガー変化
     document.addEventListener("postchange", function(event) {
         var tab = event.index;  // tab変数にタブindexを格納
         if(tab == 0) {

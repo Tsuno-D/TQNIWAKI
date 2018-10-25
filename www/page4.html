@@ -7,14 +7,23 @@
 		</div>
 		<div class="center">ここに相手の名前</div>
 	</ons-toolbar>
-	<div id="message_box">
+  
+ 
+    <div id="messages"></div>
+  
+ 
 		<!-- <input id="name" placeholder="名前"> -->
-	<p style="margin-top: 7px";>
+
+  <div id="message_box">
+    <textarea id="message" name="t_name2" cols="32" rows="1"> 
+    </textarea>
+    <button id="send">投稿</button>
+  </div>
+
+	<!-- <p style="margin-top: 7px";>
     <input id="message">
 		<button id="send">投稿</button>
-	</p>
-	</div>
-      <div id="messages"></div>
+	</p> -->
 
 	<script>
 		var my_uid = firebase.auth().currentUser.uid;
@@ -44,7 +53,7 @@
              $('<div class="container_child" id="messages_child'+i+'">').text("").appendTo('#messages_'+i);
             $('<div class="name">').text(name).appendTo('#messages_child'+i);
 
-            $('<div class= ' + c_type + '>').text(msg.body).appendTo('#messages_child'+i);
+            $('<div class= ' + c_type + ' style="white-space:pre-wrap;">').text(msg.body).appendTo('#messages_child'+i);
             
         });
 

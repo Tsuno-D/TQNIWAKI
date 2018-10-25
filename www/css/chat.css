@@ -5,10 +5,12 @@
 }
 /*
 .container_icon{
-  
+
 }
 */
 .container_photo{
+width: 60px;
+height: 60px;
 color: #333;
 background: #fff;
 border-radius: 45px 45px 45px 45px;

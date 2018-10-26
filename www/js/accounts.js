@@ -5,17 +5,31 @@ ons.bootstrap()
     _this = this;
     this.newMail;
     this.newPassword;
-    this.mail;
     this.password;
     this.isLoggedIn;
     this.$timeout = $timeout;
+    this.confirmation;
 
     // 新規ユーザ登録
     this.regi = function () {
       // 新規ユーザーの登録機能
-      firebase.auth().createUserWithEmailAndPassword(this.newMail, this.newPassword).catch(function (error) {
+      var PASS = document.getElementById("pass").value; //パスワードフォームの値を取得
+    var PASSConfirm = document.getElementById("conf").value; //パスワード確認用フォームの値を取得
+
+
+    if(PASS.length < 6){
+    ons.notification.alert('パスワードは6文字以上入力してください');
+    }else if(PASS != PASSConfirm){
+     ons.notification.alert('パスワードが一致しません');
+
+    }else{firebase.auth().createUserWithEmailAndPassword(this.newMail, this.newPassword).
+      catch(function (error) {
         alert(error.message);
       });
+     }
+
+
+
     }
 
     // ログイン

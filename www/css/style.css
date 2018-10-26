@@ -4,50 +4,13 @@
   height: 100vh;
   background-color: lightblue;
 }
-input{
-  height: 40px;
-}
-.replaceable {
-  position: relative; }
-
-
-.content {
-  min-height: calc(100vh - 70px);
+/* ------ miya ----- */
+    .content {
+ min-height: calc(100vh - 70px);
 }
 .footer {
-  height: 50px;
+ height: 50px;
 }
-
-
-#text_tag {
-        margin: 0;
-        padding: 0;
-    }
-    .text_tag_li {
-        width: 100px;
-        height: 25px;
-        margin-bottom: 10px;
-        border: solid 1px #46afeb;
-        list-style: none;
-        padding: 5px;
-        background: #40b8fc;
-        display: inline-block;
-        vertical-align:top;
-        margin:2px 2px;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-    }
-    .replaceable.hit {
-        border-color: #ebaf46;
-        background: #fcc040;
-    }
-    .replaceable.dragging {
-        background: #78ceff;
-    }
 * {
-  box-sizing: border-box;
-}
-.column {
-  margin-bottom: 20px;
+ box-sizing: border-box;
 }

@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="lib/onsenui/css/onsenui.css">
     <link rel="stylesheet" href="lib/onsenui/css/onsen-css-components.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/drag.css">
     <link rel="stylesheet" href="css/bubble.css">
     <link rel="stylesheet" href="css/forlist.css">
     <link rel="stylesheet" href="css/chat.css">
@@ -100,41 +101,90 @@
         </ons-page>
     </ons-template>
     <!-- ここまでスライドメニュー -->
-    <!-- login Dialog -->
-    <div id="start">
-    <p><div class="bubble"><img src="./pic/BusinessMan.png"></div></p>
-    <ons-template id="login.html">
-    <ons-dialog ng-controller="HelloController as hello">
-        <br>
-        <br>
-        <ons-toolbar>
-            <div class="center">ログイン</div>
-        </ons-toolbar>
-        <section style="margin: 10px;" ng-hide="hello.isLoggedIn">
-            <p>メールアドレス</p>
-            <p>
-                <ons-input modifier="underbar" ng-model="hello.newMail" placeholder="メールアドレス" float></ons-input>
-            </p>
-            <p>パスワード</p>
-            <p>
-                <ons-input modifier="underbar" ng-model="hello.newPassword" placeholder="password" type="password" float></ons-input>
-            </p>
-            <ons-button ng-click="hello.regi()">新規登録</ons-button>
-        </section>
-        <section style="margin: 10px;" ng-hide="hello.isLoggedIn">
-            <p>メールアドレス</p>
-            <p>
-                <ons-input modifier="underbar" ng-model="hello.mail" placeholder="メールアドレス" float></ons-input>
-            </p>
-            <p>パスワード</p>
-            <p>
-                <ons-input modifier="underbar" ng-model="hello.password" placeholder="password" type="password" float></ons-input>
-            </p>
-            <ons-button ng-click="hello.login()">ログイン</ons-button>
-        </section>
-        </ons-dialog>
-    </ons-template>
-    <!-- (閉)login Dialog -->
+	<!-- login Dialog -->
+	<div id="start">
+		<p>
+			<div class="bubble"><img src="./pic/BusinessMan.png"></div>
+		</p>
+		<ons-template id="login.html">
+			<ons-dialog ng-controller="HelloController as hello">
+				<br>
+				<br>
+				<ons-toolbar>
+					<div class="center">ログイン</div>
+				</ons-toolbar>
+
+				<section style="margin: 10px;" ng-hide="hello.isLoggedIn">
+					<p>メールアドレス</p>
+					<p>
+						<ons-input modifier="underbar" ng-model="hello.mail" placeholder="メールアドレス" float></ons-input>
+					</p>
+					<p>パスワード</p>
+					<p>
+						<ons-input modifier="underbar" ng-model="hello.password" placeholder="password" type="password" float></ons-input>
+					</p>
+
+          <ons-row>
+            <ons-col>
+              <p><center>
+					      <ons-button ng-click="hello.login()">　ログイン　</ons-button>
+              </center></p>
+            </ons-col>
+
+            <ons-col>
+              <p><cemter>
+					     <ons-button onclick="pushDialog('new.html')" tappable>　新規登録　</ons-button>
+              </cemter></p>
+            </ons-col>
+
+
+          </ons-row>
+				</section>
+			</ons-dialog>
+		</ons-template>
+		<!-- (閉)login Dialog -->
+
+
+		<!-- 新規登録 Dialog -->
+		<ons-template id="new.html">
+			<ons-dialog ng-controller="HelloController as hello">
+				<br>
+				<br>
+
+				<ons-toolbar>
+					<div class="center">新規登録</div>
+				</ons-toolbar>
+
+				<section style="margin: 10px;" ng-hide="hello.isLoggedIn">
+
+					<p>メールアドレス</p>
+					<p>
+						<ons-input modifier="underbar" ng-model="hello.newMail" placeholder="メールアドレス" float></ons-input>
+					</p>
+					<p>パスワード</p>
+					<p>
+						<ons-input id="pass" modifier="underbar" ng-model="hello.newPassword" placeholder="新しいパスワード" type="password" float></ons-input>
+					</p>
+
+					<p>
+						<ons-input id="conf" modifier="underbar" ng-model="hello.newPass" placeholder="確認用パスワード" type="password" float></ons-input>
+					</p>
+					<ons-row>
+						<ons-col>
+							<p><center>
+								<ons-button onclick="window.location.reload();" tappable>　　戻る　　</ons-button></center>
+							</p>
+						</ons-col>
+						<ons-col>
+							<p><center>
+								<ons-button ng-click="hello.regi()">　　登録　　</ons-button></center>
+							</p>
+						</ons-col>
+					</ons-row>
+				</section>
+			</ons-dialog>
+		</ons-template>
+		<!-- -->
 
     <!-- logout Dialog -->
     <template id="logout.html">
